@@ -1,4 +1,4 @@
-module rpc_item_demo
+module github.com/NasLez/rpc_item_demo
 
 go 1.23
 
