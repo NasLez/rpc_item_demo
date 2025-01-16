@@ -1,4 +1,4 @@
-module rpc_user
+module github.com/NasLez/rpc_item_demo
 
 go 1.23.4
 
