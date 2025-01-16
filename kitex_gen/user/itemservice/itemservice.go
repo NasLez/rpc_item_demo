@@ -7,7 +7,7 @@ import (
 	"errors"
 	client "github.com/cloudwego/kitex/client"
 	kitex "github.com/cloudwego/kitex/pkg/serviceinfo"
-	item "rpc_item_demo/kitex_gen/example/shop/item"
+	user "rpc_user/kitex_gen/user"
 )
 
 var errInvalidMessageType = errors.New("invalid message type for service method handler")
@@ -58,7 +58,7 @@ func NewServiceInfoForStreamClient() *kitex.ServiceInfo {
 
 func newServiceInfo(hasStreaming bool, keepStreamingMethods bool, keepNonStreamingMethods bool) *kitex.ServiceInfo {
 	serviceName := "ItemService"
-	handlerType := (*item.ItemService)(nil)
+	handlerType := (*user.ItemService)(nil)
 	methods := map[string]kitex.MethodInfo{}
 	for name, m := range serviceMethods {
 		if m.IsStreaming() && !keepStreamingMethods {
@@ -70,7 +70,7 @@ func newServiceInfo(hasStreaming bool, keepStreamingMethods bool, keepNonStreami
 		methods[name] = m
 	}
 	extra := map[string]interface{}{
-		"PackageName": "item",
+		"PackageName": "user",
 	}
 	if hasStreaming {
 		extra["streaming"] = hasStreaming
@@ -87,9 +87,9 @@ func newServiceInfo(hasStreaming bool, keepStreamingMethods bool, keepNonStreami
 }
 
 func getItemHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*item.ItemServiceGetItemArgs)
-	realResult := result.(*item.ItemServiceGetItemResult)
-	success, err := handler.(item.ItemService).GetItem(ctx, realArg.Req)
+	realArg := arg.(*user.ItemServiceGetItemArgs)
+	realResult := result.(*user.ItemServiceGetItemResult)
+	success, err := handler.(user.ItemService).GetItem(ctx, realArg.Req)
 	if err != nil {
 		return err
 	}
@@ -97,11 +97,11 @@ func getItemHandler(ctx context.Context, handler interface{}, arg, result interf
 	return nil
 }
 func newItemServiceGetItemArgs() interface{} {
-	return item.NewItemServiceGetItemArgs()
+	return user.NewItemServiceGetItemArgs()
 }
 
 func newItemServiceGetItemResult() interface{} {
-	return item.NewItemServiceGetItemResult()
+	return user.NewItemServiceGetItemResult()
 }
 
 type kClient struct {
@@ -114,10 +114,10 @@ func newServiceClient(c client.Client) *kClient {
 	}
 }
 
-func (p *kClient) GetItem(ctx context.Context, req *item.GetItemReq) (r *item.GetItemResp, err error) {
-	var _args item.ItemServiceGetItemArgs
+func (p *kClient) GetItem(ctx context.Context, req *user.GetItemReq) (r *user.GetItemResp, err error) {
+	var _args user.ItemServiceGetItemArgs
 	_args.Req = req
-	var _result item.ItemServiceGetItemResult
+	var _result user.ItemServiceGetItemResult
 	if err = p.c.Call(ctx, "GetItem", &_args, &_result); err != nil {
 		return
 	}

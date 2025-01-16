@@ -6,12 +6,12 @@ import (
 	"context"
 	client "github.com/cloudwego/kitex/client"
 	callopt "github.com/cloudwego/kitex/client/callopt"
-	item "rpc_item_demo/kitex_gen/example/shop/item"
+	user "rpc_user/kitex_gen/user"
 )
 
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
-	GetItem(ctx context.Context, req *item.GetItemReq, callOptions ...callopt.Option) (r *item.GetItemResp, err error)
+	GetItem(ctx context.Context, req *user.GetItemReq, callOptions ...callopt.Option) (r *user.GetItemResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -43,7 +43,7 @@ type kItemServiceClient struct {
 	*kClient
 }
 
-func (p *kItemServiceClient) GetItem(ctx context.Context, req *item.GetItemReq, callOptions ...callopt.Option) (r *item.GetItemResp, err error) {
+func (p *kItemServiceClient) GetItem(ctx context.Context, req *user.GetItemReq, callOptions ...callopt.Option) (r *user.GetItemResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetItem(ctx, req)
 }

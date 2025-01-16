@@ -3,11 +3,11 @@ package itemservice
 
 import (
 	server "github.com/cloudwego/kitex/server"
-	item "rpc_item_demo/kitex_gen/example/shop/item"
+	user "rpc_user/kitex_gen/user"
 )
 
 // NewServer creates a server.Server with the given handler and options.
-func NewServer(handler item.ItemService, opts ...server.Option) server.Server {
+func NewServer(handler user.ItemService, opts ...server.Option) server.Server {
 	var options []server.Option
 
 	options = append(options, opts...)
@@ -20,6 +20,6 @@ func NewServer(handler item.ItemService, opts ...server.Option) server.Server {
 	return svr
 }
 
-func RegisterService(svr server.Server, handler item.ItemService, opts ...server.RegisterOption) error {
+func RegisterService(svr server.Server, handler user.ItemService, opts ...server.RegisterOption) error {
 	return svr.RegisterService(serviceInfo(), handler, opts...)
 }
